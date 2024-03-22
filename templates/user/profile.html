@@ -1,0 +1,181 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block title %} Fruitables - Vegetable Website Template {% endblock %}
+
+
+{% block content %}
+
+<!-- Content wrapper -->
+<div class="content-wrapper container">
+    <!-- Content -->
+
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3 mb-4">Student Account</h4>
+        {% if user.is_authenticated %}
+            {% with profile=user.profile %}
+                {% if profile %}            <div class="container">
+                    <div class="main-body">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex flex-column align-items-center text-center">
+                                            <img src="{{ user.profile.img.url }}" alt="Profile Image" class="rounded-circle p-1 bg-primary"
+                                                width="110">
+                                            <div class="mt-3">
+                                                <h4>{{user.username}} </h4>
+                                                <p class="text-secondary mb-1 text-capitalize">Preparing for : <b>{{user.profile.cource}}</b></p>    
+                                                <p class="text-secondary mb-1 text-capitalize">Enrolment : <b>{{user.profile.Enrollment}}</b></p>    
+                                            </div>
+                                        </div>
+                                        <hr class="my-4">
+                                        <div class="row">
+                                            <div class="col-sm-3"></div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <a type="button" href="{% url 'signout' %}" class="btn btn-danger px-4" >Logout</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Full Name</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary d-flex">
+                                                <input type="text" class="form-control m-1" value="{{user.first_name}}" disabled>
+                                                <input type="text" class="form-control m-1" value="{{user.last_name}}" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">UserName</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <input type="text" class="form-control" value="{{user.username}}" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Phone</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <input type="text" class="form-control" value="{{user.profile.number}}" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Address</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <input type="text" class="form-control" value="{{user.profile.address}}" disabled>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="d-flex align-items-center mb-3">Project Status</h5>
+                                               <div style="width: 200px; height: 200px;">
+                                                    <canvas id="pieChart"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+  
+            {% else %}
+                <!-- 404 Start -->
+                <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="container text-center">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+                        <i class="bi bi-exclamation-triangle display-1 text-primary"></i>
+                        <h1 class="mb-4">User Not Found</h1>
+                        <p class="mb-4">
+                            We’re sorry, this user is not eligible for see profile ,you can contect your admin
+                        </p>
+                        <a class="btn btn-primary py-3 px-5" href="{% url 'home' %}">Go Back To Home</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <!-- 404 End -->
+                {% endif %}
+            {% endwith %}
+        {% else %}
+            <!-- 404 Start -->
+            <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="container text-center">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                    <i class="bi bi-exclamation-triangle display-1 text-primary"></i>
+                    <h1 class="mb-4">User Not Found</h1>
+                    <p class="mb-4">
+                        We’re sorry, this user is not eligible for see profile ,you can contect your admin
+                    </p>
+                    <a class="btn btn-primary py-3 px-5" href="{% url 'home' %}">Go Back To Home</a>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <!-- 404 End -->            
+        {% endif %}
+    </div>
+    <!-- / Content -->
+
+    <div class="content-backdrop fade"></div>
+</div>
+<!-- Content wrapper -->
+{% endblock %}
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+   <script>
+        var quizData = [
+        {% for data in quiz_data %}
+            {
+                "mark": "{{ data.mark.score }}",
+                "total_questions": "{{ data.quiz.number_of_questions }}"
+            }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ];
+
+    // Prepare data for pie chart
+    var pieData = [];
+    quizData.forEach(function(data) {
+        var achieved = parseFloat(data.mark);
+        var total = parseFloat(data.total_questions);
+        var remaining = total - achieved;
+        pieData.push(achieved);
+        pieData.push(remaining);
+    });
+
+    // Render pie chart
+    var ctx = document.getElementById('pieChart').getContext('2d');
+    var pieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Achieved Marks', 'Remaining Marks'],
+            datasets: [{
+                data: pieData,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)', // Red for achieved marks
+                    'rgba(54, 162, 235, 0.6)' // Blue for remaining marks
+                ]
+            }]
+        }
+    });
+    </script>
+{% endblock %}

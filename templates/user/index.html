@@ -1,0 +1,273 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block title %} Fruitables - Vegetable Website Template {% endblock %}
+
+
+{% block content %}
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-dark p-0 mb-5">
+      <div class="row g-0 flex-column-reverse flex-lg-row">
+        <div class="col-lg-6 p-0 wow fadeIn" data-wow-delay="0.1s">
+         {% for title in title %}
+          <div
+            class="header-bg h-100 d-flex flex-column justify-content-center p-5">
+            <h1 class="display-4 text-light mb-5">
+              {{title.name}}
+            </h1>
+            <div class="d-flex align-items-center pt-4 animated slideInDown">
+              
+              <button
+                type="button"
+                class="btn-play"
+                data-bs-toggle="modal"
+                data-src="{{title.url}} "
+                data-bs-target="#videoModal"
+              >
+                <span></span>
+              </button>
+              <h6 class="text-white m-0 ms-4 d-none d-sm-block">Watch Video</h6>
+            </div>
+          </div>
+          {%endfor%}
+        </div>
+        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+          <div class="owl-carousel header-carousel">
+            {% for ban in banner %}
+              <div class="owl-carousel-item">
+                <img class="img-fluid" src="{{ ban.img.url }}" alt="{{ ban.name }}" alt="" />
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Header End -->
+    <!-- Video Modal Start -->
+    <div
+      class="modal modal-video fade"
+      id="videoModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content rounded-0">
+          <div class="modal-header">
+            <h3 class="modal-title" id="exampleModalLabel">Youtube Video</h3>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <!-- 16:9 aspect ratio -->
+            <div class="ratio ratio-16x9">
+              <iframe
+                class="embed-responsive-item"
+                src=""
+                id="video"
+                allowfullscreen
+                allowscriptaccess="always"
+                allow="autoplay"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Video Modal End -->
+
+    <!-- About Start -->
+    <div class="container-xxl py-5">
+      <div class="container">
+        <div class="row g-5">
+          {% for about in About%}
+          <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+            <p><span class="text-primary me-2">#</span>Welcome To FreshGujarat Education</p>
+            <h1 class="display-5 mb-4">
+              {{about.name}}
+            </h1>
+            <p class="mb-4">
+              {{about.des}}
+            </p>
+            <h5 class="mb-3">
+              <i class="far fa-check-circle text-primary me-3"></i>Ac Rooms
+              
+            </h5>
+            <h5 class="mb-3">
+              <i class="far fa-check-circle text-primary me-3"></i>Silent Environment
+            </h5>
+            <h5 class="mb-3">
+              <i class="far fa-check-circle text-primary me-3"></i>Weekly Test
+            </h5>
+            <h5 class="mb-3">
+              <i class="far fa-check-circle text-primary me-3"></i>CCTV Security </h5>
+          </div>
+          <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+            <div class="img-border">
+              <img class="img-fluid" src="{{ about.img.url }}" alt="{{ about.name }}" />
+            </div>
+          </div>
+        </div>
+        {%endfor%}
+      </div>
+    </div>
+    <!-- About End -->
+
+    
+    <!-- Service Start -->
+    <div class="container-xxl py-5">
+      <div class="container">
+        <div class="row g-5 mb-5 wow fadeInUp" data-wow-delay="0.1s">
+          <div class="col-lg-6">
+            <p><span class="text-primary me-2">#</span>Our Services</p>
+            <h1 class="display-5 mb-0">
+              Special Services For
+              <span class="text-primary">FreshGujarat</span> Students
+            </h1>
+          </div>
+          <div class="col-lg-6">
+            <div
+              class="bg-primary h-100 d-flex align-items-center py-4 px-4 px-sm-5"
+            >
+              <i class="fa fa-3x fa-mobile-alt text-white"></i>
+              <div class="ms-4">
+                <p class="text-white mb-0">Call for more info</p>
+                <h2 class="text-white mb-0">+91 76238 19656 </h2>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row gy-5 gx-4">
+          {% for ser in Services%}
+          <div
+            class="col-lg-3 col-md-4 col-sm-6 wow fadeInUp"
+            data-wow-delay="0.3s"
+          >
+            <img class="img-fluid mb-3" src="{{ ser.img.url }}" alt="{{ ser.name }}" width="100px" height="100px"/>
+            <h5 class="mb-3">{{ser.name}} </h5>
+            <span>{{ser.des}} </span
+            >
+          </div>
+          {%endfor%}
+        </div>
+      </div>
+    </div>
+    <!-- Service End -->
+
+    <!-- Animal Start -->
+    <div class="container-xxl py-5">
+      <div class="container">
+        <div
+          class="row g-5 mb-5 align-items-end wow fadeInUp"
+          data-wow-delay="0.1s"
+        >
+          <div class="col-lg-7">
+            <p><span class="text-primary me-2">#</span>Our Gallary</p>
+            <h1 class="display-5 mb-0">
+              Let`s See Our <span class="text-primary">FreshGujarat</span> Awsome Moments
+            </h1>
+          </div>
+        </div>
+        <!-- ---------------------------------------------------------------------------- -->
+        <div class="container-xxl py-5">
+          <div class="container">
+              <div class="row g-4">
+                {% for gal in gallary%}
+                  <div class="col-lg-4 col-md-3s wow fadeInUp" data-wow-delay="0.1s">
+                      <div class="team-item rounded overflow-hidden">
+                        <!-- <a
+                        class="animal-item"
+                        href="{{ gal.img.url }}"
+                        data-lightbox="animal"
+                      > -->
+                        <div class="position-relative flex ">
+                         
+                          <img class="img-fluid " src="{{ gal.img.url }}" alt="{{ gal.name }}" alt=""/>
+                          <div class="animal-text p-4">
+                            <p class="text-white small text-uppercase mb-0">Animal</p>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                  {%endfor%}
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Animal End -->
+
+
+    <!-- Membership Start -->
+    <div class="container-xxl py-5">
+      <div class="container">
+        <div
+          class="row g-5 mb-5 align-items-end wow fadeInUp"
+          data-wow-delay="0.1s"
+        >
+          <div class="col-lg-7">
+            <p><span class="text-primary me-2">#</span>Cource</p>
+            <h1 class="display-5 mb-0">
+              You Can Apply For 
+              <span class="text-primary">Cource</span>
+            </h1>
+          </div>
+         
+        </div>
+        <div class="row g-4">
+          {% for clas in classcis%}
+          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="membership-item position-relative">
+              <img class="img-fluid" src="{{clas.img.url}}" alt="" />
+              <!-- <h1 class="display-1">0</h1> -->
+              <h4 class="text-white mb-3">{{clas.name}}</h4>
+              <h3 class="text-primary mb-4">${{clas.price}} </h3>
+              <p><i class="fa fa-check text-primary me-3"></i>{{clas.dec}} </p>
+              <a class="btn btn-outline-light px-4 mt-3" href="">Get Started</a>
+            </div>
+          </div>
+          {%endfor%}
+          
+        </div>
+      </div>
+    </div>
+    <!-- Membership End -->
+
+    <!-- Testimonial Start -->
+    <div class="container-xxl py-5">
+      <div class="container">
+        <h1
+          class="display-5 text-center mb-5 wow fadeInUp"
+          data-wow-delay="0.1s"
+        >
+          Our Students Say!
+        </h1>
+        <div
+          class="owl-carousel testimonial-carousel wow fadeInUp"
+          data-wow-delay="0.1s"
+        >
+         {% for mes in Masessage%}
+          <div class="testimonial-item text-center">
+            <img
+              class="img-fluid rounded-circle border border-2 p-2 mx-auto mb-4"
+              src="{{ mes.img.url }}" alt="{{ mes.name }}" 
+              style="width: 100px; height: 100px"
+            />
+            <div class="testimonial-text rounded text-center p-4">
+              <p>
+               {{mes.des}}
+              </p>
+              <h5 class="mb-1">{{mes.name}} </h5>
+            </div>
+          </div>
+          {%endfor%}
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Testimonial End -->
+{% endblock content %}

@@ -1,0 +1,207 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{% block title %}{% endblock %}</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="keywords" />
+    <meta content="" name="description" />
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Quicksand:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icon Font Stylesheet -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'lib/lightbox/css/lightbox.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+
+    <!-- Template Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  </head>
+
+  <body>
+{% include 'user/header.html' %}
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-title"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      {% if user.is_authenticated %}
+      <div class="modal-body" id="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" id="start-quiz" class="btn btn-primary">Start Quiz</button>
+      </div>
+      {% else %}
+      <div class="modal-body">
+        <h3>Login first to start the quiz</h3>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<br><br><br>
+
+<!-- cards -->
+<div class="container">
+  <div class="container mx-auto mt-2">
+    <div class="row">
+
+      {% for i in quiz %}
+      <div class="col-md-4">
+        <div class="card" style="width: 21rem;">
+          <div class="card-body">
+            <h5 class="card-title" style="text-align: center;">{{i.name}}</h5>
+            <br>
+            <p class="card-text">{{i.desc}}</p>
+            <br>
+            <button data-bs-target="#exampleModal" data-bs-toggle="modal" data-time="{{i.time}}"
+              data-questions="{{i.number_of_questions}}" data-name="{{i.name}}" data-id="{{i.id}}" id="btn"
+              style="justify-content: center;" class="btn btn-primary  attempt btn mr-2 modal-button"><i class="fas fa-link"></i> Attempt Test</button>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+<!-- Footer Start -->
+    <div
+      class="container-fluid footer bg-dark text-light footer mt-5 pt-5 wow fadeIn"
+      data-wow-delay="0.1s"
+    >
+      <div class="container py-5">
+        <div class="row g-5">
+          <div class="col-lg-3 col-md-6">
+            <h5 class="text-light mb-4">Address</h5>
+            {% for about in About%}
+                <p class="mb-2">
+                  <i class="fa fa-map-marker-alt me-3"></i>{{about.location}}
+                </p>
+                <p class="mb-2">
+                  <i class="fa fa-phone-alt me-3"></i>+91 {{about.number}}
+                </p>
+                <p class="mb-2">
+                  <i class="fa fa-envelope me-3"></i>{{about.email}}
+                </p>
+            {%endfor%}
+            <div class="d-flex pt-2">
+              {% for link in links%}
+              <a class="btn btn-outline-light btn-social" href="{{link.url}}"
+                ><i class="fab fa-{{link.name}}"></i></a>
+              
+              {%endfor%}
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <h5 class="text-light mb-4">Quick Links</h5>
+            <a class="btn btn-link" href="">About Us</a>
+            <a class="btn btn-link" href="">Contact Us</a>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <h5 class="text-light mb-4">Quick Links</h5>
+            <a class="btn btn-link" href="">About Us</a>
+            <a class="btn btn-link" href="">Contact Us</a>
+          </div>
+          
+        </div>
+        
+      </div>
+      <div class="container">
+        <div class="copyright">
+          <div class="row">
+            <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+              &copy; <a class="border-bottom" href="#">Your Site Name</a>, All
+              Right Reserved.
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+              <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+              created By :
+              <a class="border-bottom" href=""
+                >Vipul Tarur</a
+              >
+             
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"
+      ><i class="bi bi-arrow-up"></i
+    ></a>
+
+<script>
+  const modalBtns = [...document.getElementsByClassName('modal-button')]
+  const modalBody = document.getElementById('modal-body')
+  const modaltitle = document.getElementById('modal-title')
+  const startQuiz = document.getElementById('start-quiz')
+
+  const url = window.location.href
+
+  modalBtns.forEach(modalBtn => modalBtn.addEventListener('click', () => {
+    const id = modalBtn.getAttribute('data-id')
+    const name = modalBtn.getAttribute('data-name')
+    const numberOfQuestions = modalBtn.getAttribute('data-questions')
+    const time = modalBtn.getAttribute('data-time')
+
+    modaltitle.innerHTML = `${name}`
+
+    modalBody.innerHTML = `
+    The ${name} consists of ${numberOfQuestions} questions and hence it is of ${numberOfQuestions} marks. You will be getting exactly ${time} seconds to complete ${numberOfQuestions} multiple choice questions. After completing the questions you can click on the
+          submit button to get your score and to understand the concept in which you made a mistake.<br>
+          All the best for the quiz!!!.
+    `
+
+    startQuiz.addEventListener('click', () => {
+      window.location.href = url + id
+    });
+  }));
+</script>
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'lib/counterup/counterup.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'lib/lightbox/js/lightbox.min.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+  </body>
+</html>
