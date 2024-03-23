@@ -72,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'vercel_app.wsgi.application'
+WSGI_APPLICATION = '@ardnt/vercel-python-wsgi.application'
 
 
 # Database
